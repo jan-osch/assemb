@@ -21,6 +21,6 @@ _start:                   ; punkt startu programu
                           ; (60=sys_exit - wyjdź z programu)
   syscall                 ; wywołujemy funkcję systemową
 
-section .data             ; początek sekcji danych.
-  tekst db "Czesc Jasiek", 0ah   ; nasz napis, który wyświetlimy
+section .data                   ; początek sekcji danych.
+  tekst db "Czesc", 0ah   ; nasz napis, który wyświetlimy
   dlugosc equ $ - tekst   ; długość napisu
