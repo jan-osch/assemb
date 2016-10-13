@@ -1,3 +1,3 @@
 FROM ubuntu
 RUN apt-get update
-RUN apt-get install -y binutils nasm
+RUN apt-get install -y binutils nasm make gcc

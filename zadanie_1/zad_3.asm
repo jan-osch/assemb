@@ -5,12 +5,12 @@ global _start
 _start: ; open file
     mov rax, 2
     mov rdi, file_name
-    mov rsi, 0102 ; Create + Write
-    mov rdx, 02000 ; suid
+    mov rsi, 0102o ; Create + Write
+    mov rdx, 02660o ; suid
     syscall
 
 _write_content:
-    mov [fd], rax ; FD = file descriptor
+    mov [fd], rax ; fd deskryptor pliku
     mov rax, 1
     mov rdi, [fd]
     mov rsi, text
