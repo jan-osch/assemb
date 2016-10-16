@@ -1,19 +1,12 @@
 %include "asm64_io.inc"
 
 segment .data
-;
-; dane zainicjalizowane
-;
-
 text db "Proszę podaj liczbę", 0
 is_prime db "Liczba jest pierwsza", 0
 is_not db "Liczba nie jest pierwsza", 0
 number db 0
 
 segment .bss
-;
-; dane niezainicjalizowane
-;
 
 segment .text
 global asm_main
@@ -30,10 +23,11 @@ ask_for_number:
 
 check_is_two:
   cmp eax, 2 ; 2 zostałaby przez pętle wyłapana
-  je found_prime
+  je found_prime ; 2 jest pierwsze
+  jl found_not_prime ; 1 nie jest pierwsze
 
 start_checking:
-  mov ecx, 2    ; zaczynamy sprawdzanie od 2
+  mov ecx, 2    ; zaczynamy sprawdzanie od 2, ecx jest dzielnikiem
 
 while_check_number:
   mov eax, [number]  ; ustawiamy number
@@ -43,7 +37,8 @@ while_check_number:
   cmp edx, 0
   je found_not_prime ; jeżeli reszta z dzielenia jest zerem to nie jest pierwsza
 
-  inc ecx ; ecx++;
+  inc ecx ; ecx++; do następnego obrotu pętli
+
   cmp ecx, [number]  ; jeżeli exc ma wartość ebx to liczba jest pierwsza
   jge found_prime
 

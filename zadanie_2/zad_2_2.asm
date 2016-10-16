@@ -30,11 +30,10 @@ ask_for_number:
   call print_string
 
 check_next_divisor:
-  mov eax, 1
-  cmp [number], eax ; sprawdzamy czy numer jaki pozostał to 1
+  mov eax, [number]
+  cmp eax, 1 ; sprawdzamy czy numer jaki pozostał to 1
   je  end_program ; jeżeli tak to kończymy program
 
-  mov eax, [number]
   mov ecx, [divisor]
   mov edx, 0
   div ecx ; dzielimy numer przez obecny dzielnik

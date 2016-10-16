@@ -68,16 +68,14 @@ end_program:
   leave
   ret
 
-
 section .functions
 
 check_is_prime: ; function that checks if number in eax is a prime number
-  cmp eax, 1
-  je found_not_prime ; 1 nie jest pierwsze
-
   mov [check_is_prime_number], eax ; kopiujemy liczbę do zachowania
+
   cmp eax, 2 ; 2 zostałaby przez pętle wyłapana
-  je found_prime
+  je found_prime ; 2 jest pierwsza
+  jl found_not_prime ; 1 nie jest pierwsza, negatywne nie sa pierwsze
 
   start_checking:
     mov ecx, 2    ; zaczynamy sprawdzanie od 2
