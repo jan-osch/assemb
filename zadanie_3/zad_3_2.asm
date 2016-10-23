@@ -1,6 +1,7 @@
 %include "asm64_io.inc"
 
 section .data
+result db "Should be 10 - result: ", 0
 array dd 1,2,3,4,5,6,-17,8,9,10 ; nasza tablica
 len dd 10
 
@@ -11,8 +12,10 @@ global asm_main
 asm_main:
  enter 0,0
 
- push array ;adres
+ mov eax, result
+ call print_string ; wypisujemy zapowiedź wyniku
 
+ push array ;adres
  mov rax, [len]
  push rax ;dlugosc tablicy
 
@@ -34,7 +37,7 @@ end_program:
 find_max:
   mov rcx, [rsp + 8] ; długość tablicy
   mov rbx, [rsp + 16] ; wskaźnik na poczatek tablicy
-  mov rdx, 0 ; index
+  xor rdx, rdx ; szybkie zerowanie rejestru
 
 _check_next_number:
   cmp rdx, rcx
@@ -43,11 +46,11 @@ _check_next_number:
   cmp rdx, 0 ; pierwszy element
   je _found_bigger
 
-  cmp eax, [rbx + 4 * rdx ]
+  cmp eax, [rbx + 4 * rdx ] ; 4 bo 32 bity
   jge _next_step
 
 _found_bigger:
-  mov rax, [rbx + 4 * rdx ]
+  mov eax, [rbx + 4 * rdx ]
 
 _next_step:
   inc rdx

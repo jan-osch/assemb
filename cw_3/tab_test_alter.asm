@@ -16,7 +16,7 @@ initialize_data:
   mov rbx, array ; adres tablicy
 
 add_next_element:
-  add dx, [rbx + 2 * rcx - 2] ; PYTANIE - dlaczego tu nie może być cx ?
+  add dx, [rbx + 2 * rcx - 2] ; PYTANIE - dlaczego tu nie może być cx ? ; czyli w indeksach zawsze używaj rcx
   loop add_next_element
 
 print_result:
