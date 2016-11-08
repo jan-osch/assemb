@@ -11,3 +11,6 @@
 
  fldz ; ładuje zero
  fld1 ; ładuje 1
+
+
+ faddp
