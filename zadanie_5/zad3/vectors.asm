@@ -1,58 +1,42 @@
- %define a dword [ebp+8]
- %define b dword [ebp+12]
- %define c dword [ebp+16]
- %define volume dword [ebp+20]
- %define area dword [ebp+24]
+%define size dword [ebp+8]
 
- segment .data
-  two dw 2
+segment .text
+global iloczyn_skalarny
 
- segment .text
- global iloczyn_skalarny
+iloczyn_skalarny:
+  push ebp
+  mov ebp, esp
+  push ecx ; for index
+  push ebx
+  push eax
+  push edx
 
- iloczyn_skalarny:
-   push ebp
-   mov ebp, esp
-   push ebx
+_start:
+  mov eax, [ebp+12]
+  mov ebx, [ebp+16]
+  fldz
 
-  _compute_volume:
-    fld a
-    fld b
-    fld c  ; stack: c, b, a
-    fmulp st1 ; stack: c*b, a
-    fmulp st1 ; stack: c*b*a
+  xor ecx, ecx ;index
+  xor edx, edx ;rozmiar 12 bajtowy dorównane do rozmiaru ramki stosu przez kompilator C
 
-  _save_volume:
-    mov ebx, volume
-    fstp dword [ebx]
+  _pop_digit_pair:
+    cmp ecx, size ; warunek stopu
+    je done
 
-  _compute_area:
-    fild word [two]
-    fld a
-    fld b
+    fld tword [eax + edx] ;UWAGA znalezienie tword zajęło mi 4 godziny czasu
+    fld tword [ebx + edx]
     fmulp st1
-    fmulp st1 ; stack: 2*a*b
+    fadd
 
-    fild word [two]
-    fld c
-    fld b
-    fmulp st1
-    fmulp st1
-    fadd ; stack: 2*b*c + 2*a*b
+    inc ecx ;index++
+    add edx, 12 ;skaczemy co 12 bajtów
+    jmp _pop_digit_pair
 
-    fild word [two]
-    fld c
-    fld a
-    fmulp st1
-    fmulp st1
-    fadd ; stack: 2*a*c + 2*b*c + 2*a*b
-
-  _save_area:
-    mov ebx, area
-    fstp dword [ebx]
-
- done:
+done:
+  pop edx
+  pop eax
   pop ebx
+  pop ecx
   mov esp, ebp
   pop ebp
   ret
