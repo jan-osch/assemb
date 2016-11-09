@@ -1,21 +1,17 @@
-// kod C w main.c, kod asemblerowy w quad.asm
-// KOMPILACJA:
-// gcc -m32 -o main.o -c main.c
-// nasm -felf32 -o quad.o quad.asm
-// gcc -m32 -o quad quad.o main.o
-
 #include <stdio.h>
 
-extern double wartosc(double a, double b, double  c, double d, double x);
+extern void prostopadloscian( float a, float b, float c, float * objetosc, float * pole);
 
 int main()
 {
-    double a, b, c, d, x;
+    float a, b, c, vol, area;
 
-    printf("Enter a , b, c, d, x: ");
-    scanf("%lf %lf %lf %lf %lf", &a, &b, &c, &d, &x);
+    printf("Enter a , b, c: ");
+    scanf("%f %f %f", &a, &b, &c);
 
-    double result = wartosc(a,b,c,d,x);
-    printf ("result: %lf \n", result);
+    prostopadloscian(a, b, c, &vol, &area);
+    printf ("area: %.10g \n", area);
+    printf ("volume: %.10g \n", vol);
+
     return 0;
 }
