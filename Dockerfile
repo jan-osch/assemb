@@ -11,3 +11,5 @@ RUN apt-get update
 RUN apt-get install -y libc6-dev-i386
 RUN apt-get update
 RUN apt-get install -y libc-dev
+RUN apt-get update
+RUN apt-get install -y gdb
