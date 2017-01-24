@@ -4,11 +4,11 @@
 //  gcc sumuj64.o suma64.o -o suma64
 
 #include <stdio.h>
-extern double wartosc(double a, double b, double x, int n);
+extern int iloczyn(int n, ...);
 
 int main() {
-  double c = wartosc(4, 3, 2, -2);
-  printf("Wartosc = %lf\n", c);
+  int c = iloczyn(10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10); // 30
+  printf("Iloczyn = %d \n", c);
 
   return 0;
 }

@@ -13,3 +13,5 @@ RUN apt-get update
 RUN apt-get install -y libc-dev
 RUN apt-get update
 RUN apt-get install -y gdb
+RUN apt-get update
+RUN apt-get install -y g++

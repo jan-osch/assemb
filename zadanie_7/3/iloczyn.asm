@@ -1,8 +1,6 @@
 segment .text
 global iloczyn
 
-; rdi - array length
-; rsi - array location
 iloczyn:
   pop r10 ;return address
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-PROGRAM_NAME="wartosc"
+PROGRAM_NAME="iloczyn"
 
 gcc -c main.c -o main.o
 nasm -felf64 $PROGRAM_NAME.asm -o $PROGRAM_NAME.o
